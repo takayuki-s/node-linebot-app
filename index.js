@@ -1,6 +1,7 @@
 const https = require("https");
 const express = require("express");
 const app = express();
+var crypto = require("crypto");
 
 const PORT = process.env.PORT || 3000;
 const TOKEN = process.env.LINE_ACCESS_TOKEN;
@@ -71,3 +72,14 @@ app.post("/webhook", function (req, res) {
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });
+
+// 署名検証
+function validate_signature(signature, body) {
+  return (
+    signature ==
+    crypto
+      .createHmac("sha256", process.env.LINE_CHANNEL_SECRET)
+      .update(new Buffer(JSON.stringify(body), "utf8"))
+      .digest("base64")
+  );
+}
