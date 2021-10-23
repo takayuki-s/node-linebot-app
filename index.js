@@ -15,6 +15,7 @@ app.use(
 
 app.get("/", (req, res) => {
   res.sendStatus(200);
+  res.send("<h1>LINE BOT TEST</h1>");
 });
 
 app.post("/webhook", function (req, res) {
