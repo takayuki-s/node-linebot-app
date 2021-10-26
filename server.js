@@ -1,7 +1,9 @@
-const http = require("http");
+const express = require("express");
 
-const server = http.createServer((request, response) => {
-  response.writeHead(200, { "Content-Type": "text/html" });
-  response.end("Hello World!");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.render("hello.ejs");
 });
-server.listen(8080);
+
+app.listen(3000);
